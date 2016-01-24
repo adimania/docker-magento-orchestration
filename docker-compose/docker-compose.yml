@@ -1,11 +1,21 @@
-web:
-  image: adimania/magento2-autosetup
+mage: adimania/magento2-autosetup
   ports:
    - 80
   volumes:
    - /opt/data:/var/www/html/
   links:
    - mysql
+  environment:
+   - BASE_URL=http://shop.adi.im/magento/
+   - DB_HOST=mysql
+   - DB_NAME=magento
+   - DB_USER=root
+   - DB_PASSWORD=my-secret-pw
+   - ADMIN_FNAME=User
+   - ADMIN_LNAME=Admin
+   - ADMIN_EMAIL=aditya@adityapatawari.com
+   - ADMIN_USER=mageadmin
+   - ADMIN_PASSWORD=MAGE@123
 mysql:
   image: mysql
   environment:
