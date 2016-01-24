@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: magento-webapp-controller
+spec:
+  replicas: 2
+  selector:
+    app: magento-webapp
+  template:
+    metadata:
+      labels:
+        app: magento-webapp 
+    spec:
+      containers:
+      - name: magento-webapp
+        image: adimania/magento2-autosetup
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - name: app-persistent-storage
+            mountPath: /var/www/html
+        env:
+          - name: BASE_URL
+            value: http://shop.adi.im/magento/
+          - name: DB_HOST
+            value: mysql-svc
+          - name: DB_NAME
+            value: magento
+          - name: DB_USER
+            value: root
+          - name: DB_PASSWORD
+            value: my-secret-pw
+          - name: ADMIN_FNAME
+            value: User
+          - name: ADMIN_LNAME
+            value: Admin
+          - name: ADMIN_EMAIL
+            value: aditya@adityapatawari.com
+          - name: ADMIN_USER
+            value: mageadmin
+          - name: ADMIN_PASSWORD
+            value: MAGE@123
+      volumes:
+        - name: app-persistent-storage
+          hostPath:
+            path: /opt/data
+
