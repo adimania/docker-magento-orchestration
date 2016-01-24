@@ -1,0 +1,13 @@
+web:
+  image: adimania/magento2-autosetup
+  ports:
+   - 80
+  volumes:
+   - /opt/data:/var/www/html/
+  links:
+   - mysql
+mysql:
+  image: mysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=my-secret-pw
+    - MYSQL_DATABASE=magento
